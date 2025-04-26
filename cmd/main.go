@@ -13,6 +13,7 @@ func main() {
 	handler := productHandler.New(service)
 
 	app.Post("/products", handler.AddProduct)
+	app.Put("/products/:product_id", handler.UpdateProduct)
 	app.Get("/products", handler.GetProducts)
 
 	app.Listen(":3000")

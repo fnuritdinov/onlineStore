@@ -7,6 +7,7 @@ import (
 
 type Handler interface {
 	AddProduct(c fiber.Ctx) error
+	UpdateProduct(c fiber.Ctx) error
 	GetProducts(c fiber.Ctx) error
 }
 
