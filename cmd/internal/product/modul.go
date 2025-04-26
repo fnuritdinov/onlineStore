@@ -17,10 +17,8 @@ type Service interface {
 }
 
 type service struct {
-	products []Product
-	nextID   int
 }
 
 func NewService() Service {
-	return &service{products: []Product{}, nextID: 1}
+	return &service{}
 }

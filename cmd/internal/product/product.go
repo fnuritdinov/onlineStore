@@ -2,14 +2,16 @@ package product
 
 import "time"
 
+var products []Product
+var productID = 0
+
 func (s *service) AddProduct(p Product) ([]Product, error) {
-	p.ID = s.nextID
+	p.ID = productID + 1
 	p.CreatedAt = time.Now().Format("02-01-2006")
-	s.nextID++
-	s.products = append(s.products, p)
-	return s.products, nil
+	products = append(products, p)
+	return products, nil
 }
 
 func (s *service) GetProducts() ([]Product, error) {
-	return s.products, nil
+	return products, nil
 }

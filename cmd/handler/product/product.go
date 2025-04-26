@@ -6,7 +6,7 @@ import (
 	"onlineStore/cmd/internal/product"
 )
 
-func (h *Handler) AddProduct(c fiber.Ctx) error {
+func (h *handler) AddProduct(c fiber.Ctx) error {
 	var p product.Product
 	err := json.Unmarshal(c.Body(), &p)
 	if err != nil {
@@ -19,7 +19,7 @@ func (h *Handler) AddProduct(c fiber.Ctx) error {
 	return c.JSON(products)
 }
 
-func (h *Handler) GetProducts(c fiber.Ctx) error {
+func (h *handler) GetProducts(c fiber.Ctx) error {
 	products, err := h.service.GetProducts()
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})

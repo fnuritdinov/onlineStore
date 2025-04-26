@@ -1,11 +1,19 @@
 package product
 
-import "onlineStore/cmd/internal/product"
+import (
+	"github.com/gofiber/fiber/v3"
+	"onlineStore/cmd/internal/product"
+)
 
-type Handler struct {
+type Handler interface {
+	AddProduct(c fiber.Ctx) error
+	GetProducts(c fiber.Ctx) error
+}
+
+type handler struct {
 	service product.Service
 }
 
-func New(service product.Service) *Handler {
-	return &Handler{service: service}
+func New(service product.Service) Handler {
+	return &handler{service: service}
 }
