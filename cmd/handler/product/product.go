@@ -49,3 +49,32 @@ func (h *handler) GetProducts(c fiber.Ctx) error {
 
 	return c.JSON(products)
 }
+
+func (h *handler) GetProductByID(c fiber.Ctx) error { // 👈 новый метод
+	idParam := c.Params("product_id")
+	id, err := strconv.Atoi(idParam)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"Ошибка": "неверный id продукта"})
+	}
+
+	product, err := h.service.GetProductByID(id)
+	if err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"ошибка": "продукт не найден"})
+	}
+
+	return c.JSON(product)
+}
+
+func (h *handler) DeleteProduct(c fiber.Ctx) error {
+	idParam := c.Params("product_id")
+	id, err := strconv.Atoi(idParam)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"ошибка": "продукт не найден"})
+	}
+
+	products, err := h.service.DeleteProduct(id)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
+	}
+	return c.JSON(products)
+}

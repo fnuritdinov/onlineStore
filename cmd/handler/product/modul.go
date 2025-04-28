@@ -9,6 +9,8 @@ type Handler interface {
 	AddProduct(c fiber.Ctx) error
 	UpdateProduct(c fiber.Ctx) error
 	GetProducts(c fiber.Ctx) error
+	GetProductByID(c fiber.Ctx) error
+	DeleteProduct(c fiber.Ctx) error
 }
 
 type handler struct {

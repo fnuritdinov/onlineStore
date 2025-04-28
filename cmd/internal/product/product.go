@@ -1,6 +1,7 @@
 package product
 
 import (
+	"fmt"
 	"github.com/gofiber/fiber/v3"
 	"time"
 )
@@ -38,5 +39,25 @@ func (s *service) UpdateProduct(p Product) (*Product, error) {
 }
 
 func (s *service) GetProducts() ([]Product, error) {
+	return products, nil
+}
+
+func (s *service) GetProductByID(id int) (Product, error) { //
+	for _, p := range products {
+		if p.ID == id {
+			return p, nil
+		}
+	}
+	return Product{}, fmt.Errorf("продукт не найден")
+}
+
+func (s *service) DeleteProduct(id int) ([]Product, error) {
+	var updatedProducts []Product
+	for _, p := range products {
+		if p.ID != id {
+			updatedProducts = append(updatedProducts, p)
+		}
+	}
+	products = updatedProducts
 	return products, nil
 }

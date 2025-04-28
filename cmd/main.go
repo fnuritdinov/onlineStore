@@ -15,6 +15,8 @@ func main() {
 	app.Post("/products", handler.AddProduct)
 	app.Put("/products/:product_id", handler.UpdateProduct)
 	app.Get("/products", handler.GetProducts)
+	app.Get("/products/:product_id", handler.GetProductByID)
+	app.Delete("/products/:product_id", handler.DeleteProduct)
 
 	app.Listen(":3000")
 }
