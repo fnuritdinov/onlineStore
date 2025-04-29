@@ -42,7 +42,10 @@ func (h *handler) UpdateProduct(c fiber.Ctx) error {
 }
 
 func (h *handler) GetProducts(c fiber.Ctx) error {
-	products, err := h.service.GetProducts()
+	var page = c.Query("page")
+	var perPage = c.Query("per_page")
+
+	products, err := h.service.GetProducts(page, perPage)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
 	}

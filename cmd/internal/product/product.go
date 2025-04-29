@@ -3,6 +3,7 @@ package product
 import (
 	"fmt"
 	"github.com/gofiber/fiber/v3"
+	"strconv"
 	"time"
 )
 
@@ -38,8 +39,18 @@ func (s *service) UpdateProduct(p Product) (*Product, error) {
 	return nil, fiber.ErrNotFound
 }
 
-func (s *service) GetProducts() ([]Product, error) {
-	return products, nil
+func (s *service) GetProducts(page, perPage string) ([]Product, error) {
+	pg, err := strconv.Atoi(page)
+	if err != nil {
+		return nil, fiber.ErrBadRequest
+	}
+
+	pr, err := strconv.Atoi(perPage)
+	if err != nil {
+		return nil, fiber.ErrBadRequest
+	}
+
+	return products[pg*pr : pg*pr+pr], nil
 }
 
 func (s *service) GetProductByID(id int) (Product, error) { //

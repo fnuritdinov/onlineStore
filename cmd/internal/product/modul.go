@@ -15,7 +15,7 @@ type Product struct {
 type Service interface {
 	AddProduct(p Product) ([]Product, error)
 	UpdateProduct(p Product) (*Product, error)
-	GetProducts() ([]Product, error)
+	GetProducts(page, perPage string) ([]Product, error)
 	GetProductByID(id int) (Product, error)
 	DeleteProduct(id int) ([]Product, error)
 }
